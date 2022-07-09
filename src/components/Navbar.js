@@ -1,6 +1,9 @@
+// Link Component Form the Router Dom Libary
 import { Link } from "react-router-dom";
+// Styled fuction From the Styled Component Libary
 import styled from "styled-components";
 
+// Styled Components
 const StyledNav = styled.nav`
   font-size: 20px;
   background-color: black;
@@ -26,14 +29,17 @@ const StyledLink = styled(Link)`
   color: white;
 `;
 
+// React Function
 const Navbar = () => {
   return (
     <StyledNav>
       <StyledList>
         <li>
+          {/* Link To the Home Page */}
           <StyledLink to="/">Home</StyledLink>
         </li>
         <li>
+          {/* Link to the Create Album Page */}
           <StyledLink to="/create-album">Create Album</StyledLink>
         </li>
       </StyledList>

@@ -1,10 +1,18 @@
+// Custom Hook for the input Data
 import { useFormData } from "../utils";
+// Api Calls
 import { detailOfAlbum, updateAlbum } from "../api";
+// UseEffect hook
 import { useEffect } from "react";
+// use Params for getinh the Data form the url
+// use NAvigate To redirect
+// Form the React Router Dom Libary
 import { useParams, useNavigate } from "react-router-dom";
 
+// Styled function form Styled Components
 import styled from "styled-components";
 
+// Styled Components
 const StyledFormField = styled.div`
   width: 80%;
   margin: 20px auto;
@@ -43,26 +51,42 @@ const FromControls = styled.div`
   flex-direction: row-reverse;
 `;
 
+// React Function
 const Update = (props) => {
+  // Navigate Function for Redirecting
   const navigate = useNavigate();
+  // State For the input title
   const [title, setTitle] = useFormData("");
+  // getting id Form the Url
   const { albumId } = useParams();
+  // Geting data about the Album
   useEffect(() => {
     const getdata = async (albumId) => {
       const response = await detailOfAlbum(albumId);
+      // Setting the state for th titlebefor edting
+
+      console.log(response); // Logging the Response
+
       setTitle(response.data.title);
     };
     getdata(albumId);
   }, [albumId, setTitle]);
 
+  // Form Submit HAndler
   const submitHandler = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // prevent the default Actions
+    // Getting the Response
     const response = await updateAlbum(albumId, title.value);
+    // Logging the Response
     console.log(response);
+    // Sending the Data back to the parent Component
     props.onUpdateSubmit(albumId, title.value);
+    // Clearing the Form
     setTitle("");
+    // Redirecting to the Home Page
     navigate("/");
   };
+
   return (
     <div>
       <form onSubmit={submitHandler}>

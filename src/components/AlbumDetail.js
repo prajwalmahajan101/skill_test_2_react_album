@@ -1,9 +1,13 @@
+// Hooks Form the React Libary
 import { useEffect, useState } from "react";
+// useParams Hook Form react Router Dom Libary
 import { useParams } from "react-router-dom";
+// fecth Funtion form apis
 import { getPhoto } from "../api/index";
-
+// Styled function from Styled componets Libary
 import styled from "styled-components";
 
+// Styled Components
 const StyledDiv = styled.div`
   border: 2px solid #e1e1e1;
   border-radius: 5px;
@@ -30,23 +34,33 @@ const StyledHeading = styled.div`
   font-weight: bolder;
 `;
 
+// React Function
 const AlbumDetail = (props) => {
+  // State ofthe List of the Photos
   const [photos, setPhotos] = useState([]);
+  // get params From the Url
   const { albumId } = useParams();
+  // To get the List Of the Photos populated for the First time
+  // changes only if the albumId changes hence add it to Dependency Array
   useEffect(() => {
     const getAllPhotos = async (albumId) => {
+      // Call For the APi response
       const response = await getPhoto(albumId);
+
+      // Logging the Response
+      console.log(response);
+
       setPhotos(response.data);
     };
 
     getAllPhotos(albumId);
   }, [albumId]);
 
-  const imgClickHandler = () => {};
+  // Foramt the item in the Photos list into a JSX Element
   const formatePhoto = (el) => {
     return (
       <StyledDiv key={el.id}>
-        <img alt={el.title} onClick={imgClickHandler} src={el.thumbnailUrl} />
+        <img alt={el.title} src={el.thumbnailUrl} />
         <h1>{el.title}</h1>
       </StyledDiv>
     );

@@ -1,8 +1,13 @@
+// Custom Hook For the For Input
 import { useFormData } from "../utils";
+// Styled function From the Styled Component Libary
 import styled from "styled-components";
+// use Navigate Function formt React Router Dom to rediect After submi of Form
 import { useNavigate } from "react-router-dom";
+// Create Album Fect Fuction From the API
 import { createAlbum } from "../api";
 
+// Styled Components
 const StyledFormField = styled.div`
   width: 80%;
   margin: 20px auto;
@@ -41,14 +46,26 @@ const FromControls = styled.div`
   flex-direction: row-reverse;
 `;
 
+// React function
 const CreateAlbum = (props) => {
+  // title State
   const [title, setTitle] = useFormData("");
+  // navigate fuction
   const navigate = useNavigate();
+  // submit Handler function
   const submitHandler = async (e) => {
+    // Prevent the Submit for the normal way
     e.preventDefault();
+    // call for the create Album
     const response = await createAlbum(title.value);
+    // Sending the response Back to the parent Component
+
+    console.log(response); // Logging the Response
+
     props.onCreateAlbum(response.data);
+    // Clearing the Form
     setTitle("");
+    // Redirecting
     navigate("/");
   };
 
