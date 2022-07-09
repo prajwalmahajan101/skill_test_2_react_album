@@ -1,6 +1,6 @@
 import { useFormData } from "../utils";
 import styled from "styled-components";
-
+import { useNavigate } from "react-router-dom";
 import { createAlbum } from "../api";
 
 const StyledFormField = styled.div`
@@ -26,12 +26,30 @@ const StyledFormField = styled.div`
   }
 `;
 
+const StyledButton = styled.button`
+  border: 1px solid black;
+  border-radius: 3px;
+  color: white;
+  background-color: black;
+  font-size: 20px;
+`;
+
+const FromControls = styled.div`
+  margin: 5px;
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+`;
+
 const CreateAlbum = (props) => {
-  const title = useFormData("");
+  const [title, setTitle] = useFormData("");
+  const navigate = useNavigate();
   const submitHandler = async (e) => {
     e.preventDefault();
     const response = await createAlbum(title.value);
     props.onCreateAlbum(response.data);
+    setTitle("");
+    navigate("/");
   };
 
   return (
@@ -39,7 +57,10 @@ const CreateAlbum = (props) => {
       <form onSubmit={submitHandler}>
         <StyledFormField>
           <label>Title</label>
-          <input {...title} />
+          <input {...title} required />
+          <FromControls>
+            <StyledButton>Create</StyledButton>
+          </FromControls>
         </StyledFormField>
       </form>
     </div>

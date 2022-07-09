@@ -6,6 +6,7 @@ export const API_URLS = {
   albums: () => `${API_ROOT}/albums`,
   albumsOfUser: (userId) => `${API_ROOT}/users/${userId}/albums`,
   createAlbum: () => `${API_ROOT}/albums`,
+  albumDetails: (albumId) => `${API_ROOT}/albums/${albumId}`,
   updateAlbum: (albumId) => `${API_ROOT}/albums/${albumId}`,
   deleteAlbum: (albumId) => `${API_ROOT}/albums/${albumId}`,
   photosOfAlbum: (albumId) => `${API_ROOT}/albums/${albumId}/photos`,
@@ -17,8 +18,11 @@ export const useFormData = (intialValue) => {
     setValue(e.target.value);
   };
 
-  return {
-    value,
-    onChange: handleChange,
-  };
+  return [
+    {
+      value,
+      onChange: handleChange,
+    },
+    setValue,
+  ];
 };

@@ -54,3 +54,25 @@ export const createAlbum = (title) => {
 
   return customfetch(url, { body, method, headers });
 };
+
+export const deleteAlbum = (id) => {
+  const url = API_URLS.deleteAlbum(id);
+  const method = "DELETE";
+  return customfetch(url, { method });
+};
+
+export const detailOfAlbum = (id) => {
+  const url = API_URLS.albumDetails(id);
+  const method = "GET";
+  return customfetch(url, { method });
+};
+
+export const updateAlbum = (id, title) => {
+  const url = API_URLS.updateAlbum(id);
+  const method = "PUT";
+  const body = "title=" + title + "&userId=" + 1;
+  const headers = {
+    "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+  };
+  return customfetch(url, { body, method, headers });
+};

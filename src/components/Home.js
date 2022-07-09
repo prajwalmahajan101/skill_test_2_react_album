@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { deleteAlbum } from "../api";
 
 const StyledList = styled.ul`
   list-style: none;
@@ -8,7 +9,7 @@ const StyledList = styled.ul`
   padding: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: around;
+  justify-content: space-around;
 `;
 
 const StyledHeading = styled.h1`
@@ -20,10 +21,27 @@ const StyledHeading = styled.h1`
 
 const StyledListItem = styled.li`
   margin: 5px auto;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+const StyledControlsContainer = styled.span`
+  width: 20%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `;
 
 const Home = (props) => {
   const { albums } = props;
+  const handleDelete = async (e) => {
+    const id = e.target.getAttribute("id");
+    const response = await deleteAlbum(id);
+    console.log(response);
+    props.onDelete(id);
+  };
   return (
     <div>
       <StyledList>
@@ -32,6 +50,12 @@ const Home = (props) => {
           return (
             <StyledListItem key={"album-" + el.id}>
               <Link to={"/albums/" + el.id}>{el.title}</Link>
+              <StyledControlsContainer>
+                <Link to={`/albums/${el.id}/update`}>Update</Link>
+                <button id={el.id} onClick={handleDelete}>
+                  Delete
+                </button>
+              </StyledControlsContainer>
             </StyledListItem>
           );
         })}

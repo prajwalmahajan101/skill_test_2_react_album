@@ -18,10 +18,31 @@ function App() {
   }, []);
 
   const createAlbumHandler = (newAlbum) => {
-    console.log(newAlbum);
     setAlbums((prevState) => {
-      console.log(prevState);
       return [newAlbum, ...prevState];
+    });
+  };
+
+  const deleteAlbumHandler = (id) => {
+    id = parseInt(id);
+    setAlbums((prevState) => {
+      const new_album = prevState.filter((el) => {
+        return el.id !== id;
+      });
+      return new_album;
+    });
+  };
+
+  const updateAlbumHandler = (id, title) => {
+    id = parseInt(id);
+    setAlbums((prevState) => {
+      const updatedList = prevState.map((el) => {
+        if (el.id === id) {
+          el.title = title;
+        }
+        return el;
+      });
+      return updatedList;
     });
   };
 
@@ -29,7 +50,11 @@ function App() {
     <>
       <Navbar />
       <Routes>
-        <Route extact path="/" element={<Home albums={Albums} />}></Route>
+        <Route
+          extact
+          path="/"
+          element={<Home albums={Albums} onDelete={deleteAlbumHandler} />}
+        ></Route>
         <Route
           extact
           path="/create-album"
@@ -39,7 +64,7 @@ function App() {
         <Route
           extact
           path="/albums/:albumId/update"
-          element={<Update />}
+          element={<Update onUpdateSubmit={updateAlbumHandler} />}
         ></Route>
       </Routes>
     </>
