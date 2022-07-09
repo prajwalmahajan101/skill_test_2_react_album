@@ -9,11 +9,13 @@ import styled from "styled-components";
 
 // Styled Components
 const StyledDiv = styled.div`
-  border: 2px solid #e1e1e1;
+  border: 2px solid #7b7b7b;
+  padding: 10px;
+  box-shadow: 10px 10px #bdbdbd;
   border-radius: 5px;
   display: flex;
   flex-direction: row;
-  margin: 5px;
+  margin: 20px 30px;
   img {
     width: 150px;
     height: 150px;

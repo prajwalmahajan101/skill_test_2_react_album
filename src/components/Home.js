@@ -8,7 +8,10 @@ import { deleteAlbum } from "../api";
 // Styled Components
 const StyledList = styled.ul`
   list-style: none;
-  border: 2px solid #e1e1e1;
+  border: 2px solid #7b7b7b;
+  padding: 10px;
+  box-shadow: 10px 10px #bdbdbd;
+  border-radius: 5px;
   margin: 20px;
   padding: 20px;
   display: flex;
@@ -38,6 +41,11 @@ const StyledControlsContainer = styled.span`
   justify-content: space-between;
 `;
 
+const StyledLink = styled(Link)`
+  text-decoration: underline;
+  color: green;
+`;
+
 // React function
 const Home = (props) => {
   // Getting the Albums List form the Props
@@ -61,9 +69,9 @@ const Home = (props) => {
         {albums.map((el) => {
           return (
             <StyledListItem key={"album-" + el.id}>
-              <Link to={"/albums/" + el.id}>{el.title}</Link>
+              <StyledLink to={"/albums/" + el.id}>{el.title}</StyledLink>
               <StyledControlsContainer>
-                <Link to={`/albums/${el.id}/update`}>Update</Link>
+                <StyledLink to={`/albums/${el.id}/update`}>Update</StyledLink>
                 <button id={el.id} onClick={handleDelete}>
                   Delete
                 </button>
