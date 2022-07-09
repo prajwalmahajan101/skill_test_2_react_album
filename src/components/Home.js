@@ -46,6 +46,15 @@ const StyledLink = styled(Link)`
   color: green;
 `;
 
+const StyledLinkedButton = styled(Link)`
+  border: 1px solid black;
+  padding: 5px;
+  border-radius: 2px;
+  text-decoration: none;
+  background-color: #696969;
+  color: white;
+`;
+
 // React function
 const Home = (props) => {
   // Getting the Albums List form the Props
@@ -71,7 +80,9 @@ const Home = (props) => {
             <StyledListItem key={"album-" + el.id}>
               <StyledLink to={"/albums/" + el.id}>{el.title}</StyledLink>
               <StyledControlsContainer>
-                <StyledLink to={`/albums/${el.id}/update`}>Update</StyledLink>
+                <StyledLinkedButton to={`/albums/${el.id}/update`}>
+                  Update
+                </StyledLinkedButton>
                 <button id={el.id} onClick={handleDelete}>
                   Delete
                 </button>
